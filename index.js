@@ -22,7 +22,8 @@ const storeItems = [
 checked: true},
 {name: "banana",
 checked: true},
-
+{name: "pepper",
+checked: false}
 
 ];
 
@@ -71,6 +72,23 @@ function generateItemElement(item, index, template) {
 
 //returns a single <li> element that gets sent into generateShoppingItemsString
 //this just display the item name
+return `
+  <li class="js-item-index-element" data-item-index="${itemIndex}">
+    <span class="shopping-item js-shoping item 
+    ${item.checked ? "shopping-item__checked" : ''}">
+    ${item.name}</span>
+    <div class="shopping-item-controls">
+      <button class="shopping-item-toggle js-item-toggle">
+        <span class="button-label">check</span>
+        </button>
+        <button class="shopping-item-delete js-item-delete">
+          <span class="button-label">delete</span>
+        </button>
+        </div>
+        </li>`;
+}
+  
+
 };
 
 
