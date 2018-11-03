@@ -1,10 +1,16 @@
 'use strict';
 
+//step 1. switch to an array inside of an object
+//add prop to see if checkbox is checked
+//showCompletedItems prop name 
+
 const STORE = [
+
   {name: "apples", checked: false},
   {name: "oranges", checked: false},
   {name: "milk", checked: true},
-  {name: "bread", checked: false}
+  {name: "bread", checked: false},
+
 ];
 
 
@@ -23,12 +29,20 @@ function generateItemElement(item, itemIndex, template) {
     </li>`;
 }
 
+function filterCheckedItems(){
+  $("#js-shopping-list-entry").on('change','shopping-list-display-items', event => {
+    const newStore = STORE.filter(el => {
+      el.true
+      renderShoppingList();
+    })
+  })
+}
 
 function generateShoppingItemsString(shoppingList) {
   console.log("Generating shopping list element");
 
   const items = shoppingList.map((item, index) => generateItemElement(item, index));
-  
+
   return items.join("");
 }
 
@@ -37,7 +51,7 @@ function renderShoppingList() {
   // render the shopping list in the DOM
   console.log('`renderShoppingList` ran');
   const shoppingListItemsString = generateShoppingItemsString(STORE);
-
+  
   // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
 }
@@ -60,8 +74,10 @@ function handleNewItemSubmit() {
 }
 
 function toggleCheckedForListItem(itemIndex) {
-  console.log("Toggling checked property for item at index " + itemIndex);
+  console.trace("Toggling checked property for item at index " + itemIndex);
+  console.log(STORE[itemIndex].checked)
   STORE[itemIndex].checked = !STORE[itemIndex].checked;
+  console.log(STORE[itemIndex].checked)
 }
 
 
@@ -80,6 +96,7 @@ function handleItemCheckClicked() {
   $('.js-shopping-list').on('click', '.js-item-toggle', event => {
     console.log('`handleItemCheckClicked` ran');
     const itemIndex = getItemIndexFromElement(event.currentTarget);
+    console.log(event.currentTarget)
     toggleCheckedForListItem(itemIndex);
     renderShoppingList();
   });
@@ -112,22 +129,6 @@ function handleDeleteItemClicked() {
   });
 }
 
-// User can press a switch/checkbox to toggle between displaying 
-// all items or displaying only items that are unchecked
-
-// function handleDisplayItems(elem) {
-//   //use an event listener for click on checkbox
-//   //set checkbox to false for unclicked
-//   //toggle true when clicked
-//   $('.js-shopping-list').on('click', '.js-item-toggle', event => {
-//   console.log('displayItems ran')
-//    if (!elem.checked) {
-
-//    }
-//   }
-// }
-
-
 
 
 
@@ -140,7 +141,6 @@ function handleShoppingList() {
   handleNewItemSubmit();
   handleItemCheckClicked();
   handleDeleteItemClicked();
-  // handleDisplayItems();
 }
 
 // when the page loads, call `handleShoppingList`
